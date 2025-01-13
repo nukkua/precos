@@ -2,20 +2,191 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	font-family: Poppins, sans-serif;
+}
+
+
+.title {
+	@apply font-bold sm:text-3xl md:text-2xl text-gray-900;
+}
+
+.paragraph {
+	@apply font-normal sm:text-xl md:text-lg text-gray-700;
+}
+
+.navlink {
+	@apply p-2 transition duration-300 will-change-transform hover:translate-x-2 hover:text-black motion-reduce:transition-none motion-reduce:hover:transform-none;
+
+}
+
+
+/* animations */
+.fade-in {
+	animation: fadeIn 1s;
+}
+
+.fade-in-fast {
+	animation: fadeIn 0.2s;
+}
+
+.fade-in-section {
+	opacity: 0;
+	transform: translateY(10vh);
+	visibility: hidden;
+	transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+	will-change: opacity, visibility;
+}
+
+.fade-in-section.is-visible {
+	opacity: 1;
+	transform: none;
+	visibility: visible;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+
+.slide-in {
+	animation: slideIn 0.5s ease-in-out forwards;
+	transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+}
+
+.slide-in-reverse {
+	animation: slideInReverse 0.5s ease-in-out forwards;
+	transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+}
+
+.slide-up {
+	animation: slideUp 0.5s ease-in-out forwards;
+	transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+}
+
+.slide-up-slow {
+	animation: slideUp 0.5s ease-in-out forwards;
+	transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+}
+
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateX(-10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideInReverse {
+	from {
+		opacity: 0;
+		transform: translateX(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+}
+
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(15px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.loader {
+	animation: rotate 1s infinite;
+	height: 35px;
+	width: 35px;
+}
+
+.loader:before,
+.loader:after {
+	border-radius: 50%;
+	content: "";
+	display: block;
+	height: 12px;
+	width: 12px;
+}
+
+.loader:before {
+	animation: ball1 1s infinite;
+	background-color: #FFD700;
+	box-shadow: 18px 0 0 #ff0000;
+	margin-bottom: 6px;
+}
+
+.loader:after {
+	animation: ball2 1s infinite;
+	background-color: #ff0000;
+	box-shadow: 18px 0 0 #FFD700;
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg) scale(0.8);
+	}
+
+	50% {
+		transform: rotate(360deg) scale(1.2);
+	}
+
+	100% {
+		transform: rotate(720deg) scale(0.8);
+	}
+}
+
+@keyframes ball1 {
+	0% {
+		box-shadow: 18px 0 0 #ff0000;
+	}
+
+	50% {
+		box-shadow: 0 0 0 #ff0000;
+		margin-bottom: 0;
+		transform: translate(6px, 6px);
+	}
+
+	100% {
+		box-shadow: 18px 0 0 #ff0000;
+		margin-bottom: 6px;
+	}
+}
+
+@keyframes ball2 {
+	0% {
+		box-shadow: 18px 0 0 #FFD700;
+	}
+
+	50% {
+		box-shadow: 0 0 0 #FFD700;
+		margin-top: -12px;
+		transform: translate(6px, 6px);
+	}
+
+	100% {
+		box-shadow: 18px 0 0 #FFD700;
+		margin-top: 0;
+	}
 }
