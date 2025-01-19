@@ -15,7 +15,8 @@ export default async function AdminLayout({
 }) {
 
 	const session = await verifySession();
-	if (!session) redirect('/auth/login');
+	console.log(session);
+	if (!session.token) redirect('/auth/login');
 
 	return (
 		<html lang="en" >
