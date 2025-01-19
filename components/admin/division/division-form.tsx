@@ -1,11 +1,14 @@
 'use client'
 
 import { AssignCuppon } from "@/components/assign-cuppon"
+import { SuccessModal } from "@/components/success-modal";
 import { useAperturaStore } from "@/providers/apertura-store-provider";
 import { useDivisionsStore } from "@/providers/division-store-provider";
+import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
 
 export const DivisionForm = () => {
+	const [isModalVisible, setIsModalVisible] = useState(false);
 	const cantidadApertura = useAperturaStore(state => state.apertura.cantidad);
 	const cupponsAssigned = useDivisionsStore((state) =>
 		Object.values(state.divisions)
@@ -30,7 +33,7 @@ export const DivisionForm = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if (divisionsConfirmed != 9) {
+		if (divisionsConfirmed != 10) {
 			toast.error('Hubo un problema en la asignacion! Debe confirmar todas las divisiones para poder asignar los cupos', {
 				duration: 5000,
 			});
@@ -44,13 +47,13 @@ export const DivisionForm = () => {
 
 		}
 		try {
-			await postsDivision(divisions);
+			const success = await postsDivision(divisions);
+
 			if (success) {
-				toast.success('Cupos para las divisiones asignados con exito!', {
+				toast.success('Cupos para la apertura asignados con exito!', {
 					duration: 5000,
 				});
-			}
-			else {
+			} else {
 				toast.error('Hubo un problema en la asignacion!', {
 					duration: 5000,
 				});
@@ -59,13 +62,22 @@ export const DivisionForm = () => {
 		catch (error: unknown) {
 			console.error(error);
 		}
-
-
-
 	}
+
+	useEffect(() => {
+		if (success) {
+			setIsModalVisible(true);
+		}
+	}, [success]);
+
 	return (
 
 		<form onSubmit={handleSubmit}>
+			<SuccessModal
+				isVisible={isModalVisible}
+				title="¡Éxito!"
+				message="Los cupos han sido asignados correctamente."
+			/>
 			<Toaster richColors position="top-right" />
 			<AssignCuppon isLoading={isLoading} />
 		</form>

@@ -4,12 +4,18 @@ import TabsAdmin from '@/components/admin/tabs-admin';
 import { AperturaStoreProvider } from '@/providers/apertura-store-provider';
 import { DivisionsStoreProvider } from '@/providers/division-store-provider';
 import { CentrosReclutamientoStoreProvider } from '@/providers/centros-reclutamiento-store-provider';
+import { UnidadesStoreProvider } from '@/providers/unidades-store-provider';
+import { verifySession } from '@/auth/dal';
+import { redirect } from 'next/navigation';
 
-export default function AdminLayout({
+export default async function AdminLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
+
+	const session = await verifySession();
+	if (!session) redirect('/auth/login');
 
 	return (
 		<html lang="en" >
@@ -21,14 +27,16 @@ export default function AdminLayout({
 						<AperturaStoreProvider>
 							<DivisionsStoreProvider>
 								<CentrosReclutamientoStoreProvider>
-									<TabsAdmin />
+									<UnidadesStoreProvider>
+										<TabsAdmin />
 
 
-									<div className="p-10 bg-white shadow-xl min-h-[calc(100vh-18rem)] justify-center flex flex-col">
-										<div className="w-full max-w-4xl xl:max-w-6xl mx-auto">
-											{children}
+										<div className="p-10 bg-white shadow-xl min-h-[calc(100vh-18rem)] justify-center flex flex-col">
+											<div className="w-full max-w-4xl xl:max-w-6xl mx-auto">
+												{children}
+											</div>
 										</div>
-									</div>
+									</UnidadesStoreProvider>
 								</CentrosReclutamientoStoreProvider>
 							</DivisionsStoreProvider>
 						</AperturaStoreProvider>

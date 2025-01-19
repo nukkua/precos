@@ -13,9 +13,10 @@ import { use, useEffect } from "react";
 
 interface Props {
 	getApertura: Promise<AperturaResponse>;
+	token: string;
 }
 
-export const Division = ({ getApertura }: Props) => {
+export const Division = ({ getApertura, token }: Props) => {
 	const apertura = use(getApertura)
 	const getDivision = useDivisionsStore(state => state.getDivision);
 	const setAperturaResponse = useAperturaStore(state => state.setAperturaResponse);
@@ -23,8 +24,8 @@ export const Division = ({ getApertura }: Props) => {
 
 	useEffect(() => {
 		setAperturaResponse(apertura);
-		getDivision();
-	}, [setAperturaResponse, getDivision, apertura])
+		getDivision(token);
+	}, [setAperturaResponse, getDivision, apertura, token])
 
 
 	return (

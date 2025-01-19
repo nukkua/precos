@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 
 interface DivisionCardProps {
 	divisionKey: string;
-	divisionValue: { cupos: number, confirmed: boolean };
+	divisionValue: { id: number, cupos: number, confirmed: boolean };
 }
 
 export const DivisionCard = ({ divisionKey, divisionValue }: DivisionCardProps) => {
@@ -20,14 +20,14 @@ export const DivisionCard = ({ divisionKey, divisionValue }: DivisionCardProps) 
 		Object.values(state.divisions).reduce((total, division) => total + division.cupos, 0)
 	);
 
-	const cupponsAvailable = cantidadApertura - cupponsAssigned;
+	const cupponsAvailable = cantidadApertura! - cupponsAssigned;
 
 	const setDivision = useDivisionsStore((state) => state.setDivision);
 
 	const handleAsignacion = (cupos: number) => {
 		if (isNaN(cupos) || cupos < 0) return;
-		if (cupos > cantidadApertura) return;
-		if (cupponsAssigned > cantidadApertura) return;
+		if (cupos > cantidadApertura!) return;
+		if (cupponsAssigned > cantidadApertura!) return;
 		if (cupponsAvailable <= 0) return;
 		if (cupos > cupponsAvailable + parseInt(cupos.toString().substring(0, cupos.toString().length - 1))) return;
 
@@ -36,11 +36,11 @@ export const DivisionCard = ({ divisionKey, divisionValue }: DivisionCardProps) 
 
 	const handleBlur = () => {
 		if (isNaN(cupos) || cupos < 0) return;
-		if (cupos > cantidadApertura) return;
-		if (cupponsAssigned > cantidadApertura) return;
+		if (cupos > cantidadApertura!) return;
+		if (cupponsAssigned > cantidadApertura!) return;
 		if (cupponsAvailable <= 0) return;
 		if (cupos > cupponsAvailable + parseInt(cupos.toString().substring(0, cupos.toString().length - 1))) return;
-		if (cupos + cupponsAssigned > cantidadApertura) return;
+		if (cupos + cupponsAssigned > cantidadApertura!) return;
 
 		setDivision(divisionKey, cupos, true);
 		setDisableInput(true);
@@ -54,7 +54,7 @@ export const DivisionCard = ({ divisionKey, divisionValue }: DivisionCardProps) 
 
 
 	return (
-		<tr className={`border-b hover:bg-gray-50 fade-in ${disableInput ? 'bg-gray-50' : 'bg-white'}`}>
+		<tr className={`border-b hover:bg-gray-50 fade-in ${disableInput || divisionValue.id === 5 ? 'bg-gray-50' : 'bg-white'}`}>
 			<th scope="row" className={`px-6 py-4 font-medium whitespace-nowrap capitalize ${disableInput ? 'text-green-700' : 'text-red-700'}`}>
 				{divisionKey}
 			</th>
@@ -71,9 +71,9 @@ export const DivisionCard = ({ divisionKey, divisionValue }: DivisionCardProps) 
 					min="1"
 					max={cantidadApertura}
 					onBlur={handleBlur}
-					disabled={disableInput}
+					disabled={disableInput || divisionValue.id === 5}
 				/>
-				{disableInput && <BlockedSvg />}
+				{(disableInput || divisionValue.id === 5) && <BlockedSvg />}
 			</td>
 			<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 gap-2">
 				<button

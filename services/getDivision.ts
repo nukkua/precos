@@ -2,14 +2,20 @@ import { url } from "./url";
 import { DivisionResponse } from "@/interfaces/divisiones/divisiones";
 
 
-export const getDivision = async (gestion: string = new Date().getFullYear().toString()): Promise<DivisionResponse> => {
+export const getDivision = async (gestion: string = new Date().getFullYear().toString(), token: string): Promise<DivisionResponse> => {
 	try {
-		const res = await fetch(`${url}/gestion/division/${gestion}`);
+		const res = await fetch(`${url}/gestion/division/${gestion}`, {
+			method: 'GET',
+			headers: {
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			},
+		});
 
 		const data = await res.json();
 
 		if (!data.success || !res.ok) {
-			throw new Error(data.message || 'Error desconocido.');
+			throw new Error(JSON.stringify(data.message) || 'Error desconocido.');
 		}
 
 		return data;

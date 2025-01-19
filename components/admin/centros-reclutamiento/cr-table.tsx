@@ -1,6 +1,8 @@
 'use client'
+import EmptyState from "@/pages/empty-page";
 import { CrGrid } from "./cr-grid"
 import { useCentrosReclutamientoStore } from "@/providers/centros-reclutamiento-store-provider";
+import { useEffect } from "react";
 
 interface Props {
 	currentPage: number;
@@ -17,6 +19,23 @@ export const CrTable = ({ currentPage, setCurrentPage }: Props) => {
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
 	)
+
+	useEffect(() => {
+		if (currentPage > totalPages && totalPages > 0) {
+			setCurrentPage(totalPages);
+		} else if (totalPages === 0 && currentPage !== 1) {
+			setCurrentPage(1);
+		}
+	}, [centrosFiltered, currentPage, totalPages, setCurrentPage]);
+
+	if (centrosFiltered?.length === 0) {
+		return (
+			<>
+				<EmptyState />
+			</>
+		)
+	}
+
 
 
 	return (

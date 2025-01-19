@@ -1,15 +1,10 @@
-'use client'
-
-import { useRouter } from "next/navigation";
-
-export default function Home() {
-	const router = useRouter()
+import { verifySession } from "@/auth/dal";
+import { redirect } from "next/navigation";
 
 
+export default async function Home() {
+	const session = await verifySession();
+	if (!session) redirect('/auth/login');
 
-	return (
-		<button onClick={() => router.push('/premilitares')}>
-			Go to premilitares
-		</button>
-	);
+	redirect('/admin/apertura')
 }

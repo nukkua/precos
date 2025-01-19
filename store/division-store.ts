@@ -26,8 +26,9 @@ export interface DivisionsActions {
 	setDivisionConfirmed: (key: string, confirmed: boolean) => void;
 	clearDivisions: () => void;
 	clearByDivision: (key: string) => void;
-	postsDivision: (division: Division) => Promise<void>;
-	getDivision: () => Promise<void>;
+	postsDivision: (division: Division) => Promise<boolean>;
+
+	getDivision: (token: string) => Promise<void>;
 }
 
 export type DivisionsStore = DivisionsState & DivisionsActions;
@@ -89,7 +90,8 @@ export const createDivisionsStore = (
 			const divisions = divisionResponse?.data?.reduce((acc, division) => {
 				acc[division.division] = {
 					id: division.codigo,
-					cupos: division.cupos_divisiones.reduce((sum, cupo) => sum + cupo.cupos, 0), // Suma de cupos
+					cupos: division.cupos_divisiones
+						.reduce((sum, cupo) => sum + cupo.cupos, 0),
 					confirmed: true,
 				};
 				return acc;
@@ -160,6 +162,8 @@ export const createDivisionsStore = (
 					message: 'Divisiones creada con éxito.',
 					errors: undefined,
 				}));
+
+				return true;
 			} catch (error: unknown) {
 				if (error instanceof Error) {
 					try {
@@ -188,14 +192,15 @@ export const createDivisionsStore = (
 						errors: { general: ['Error desconocido.'] },
 					}));
 				}
+				return false;
 			} finally {
 				set({ isLoading: false });
 			}
 		},
-		getDivision: async () => {
+		getDivision: async (token: string) => {
 			set({ isLoading: true });
 			try {
-				const response = await getDivision();
+				const response = await getDivision(new Date().getFullYear().toString(), token);
 
 				const divisions = response?.data?.reduce((acc, division) => {
 					acc[division.division] = {

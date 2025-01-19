@@ -11,7 +11,7 @@ export const DivisionCupponProgress = () => {
 			.reduce((total, division) => total + division.cupos, 0)
 	);
 
-	const cupponsAvailable = cantidadApertura - cupponsAssigned;
+	const cupponsAvailable = cantidadApertura! - cupponsAssigned;
 
 
 	return (
@@ -19,14 +19,14 @@ export const DivisionCupponProgress = () => {
 		<div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
 			<div
 				className={`h-2.5 rounded-full transition-all
-					${cupponsAvailable > (cantidadApertura * 2 / 3)
+					${cupponsAvailable > (cantidadApertura! * 2 / 3)
 						? 'bg-[#007934]'
-						: cupponsAvailable > (cantidadApertura * 1 / 3)
+						: cupponsAvailable > (cantidadApertura! * 1 / 3)
 							? 'bg-yellow-400'
 							: 'bg-red-500'
 					}
 					`}
-				style={{ width: `${(cupponsAvailable / cantidadApertura) * 100}%` }}
+				style={{ width: `${(cupponsAvailable / cantidadApertura!) * 100}%` }}
 			/>
 		</div>
 	)

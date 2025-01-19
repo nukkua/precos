@@ -1,3 +1,5 @@
+'use client'
+
 import { CrInput } from "./cr-input"
 
 import { DivisionSelectorToSearch } from "./division-selector-to-search"

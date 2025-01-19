@@ -16,6 +16,7 @@ export interface CentrosReclutamiento {
 	created_at: Date;
 	updated_at: Date;
 	cupos: number;
+	unidades: number[];
 }
 export interface Cupo {
 	id: number;

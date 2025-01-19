@@ -1,6 +1,7 @@
 import { useCentrosReclutamientoStore } from "@/providers/centros-reclutamiento-store-provider";
 
 import { DivisionsSelector } from "./divisions-selector";
+import { useDivisionsStore } from "@/providers/division-store-provider";
 
 
 export const DivisionSelectorToCreate = () => {
@@ -9,8 +10,11 @@ export const DivisionSelectorToCreate = () => {
 
 
 
+
 	return (
-		<DivisionsSelector divisionSelected={divisionSelected} setDivisionSelected={setDivisionSelected}  />
+		<>
+			<DivisionsSelector divisionSelected={divisionSelected} setDivisionSelected={setDivisionSelected} />
+		</>
 
 	)
 }

@@ -4,20 +4,19 @@ import { usePathname } from 'next/navigation';
 
 import { useEffect, useState } from 'react';
 
-import { useAperturaStore } from '@/providers/apertura-store-provider';
 
 const stepsInit = [
-	{ id: '/admin/apertura', label: '1. Apertura de Cupos', access: true },
-	{ id: '/admin/divisiones', label: '2. Asignación a Divisiones', access: false },
-	{ id: '/admin/centros-reclutamiento', label: '3. Centros de Reclutamiento', access: false },
-	{ id: '/admin/unidades-educativas', label: '4. Unidades Educativas', access: false },
+	{ id: '/admin/apertura', label: '1. Asignar a Aperturas', access: true },
+	{ id: '/admin/divisiones', label: '2. Asignar a Regiones', access: false },
+	{ id: '/admin/centros-reclutamiento', label: '3. Centros Reclutamiento', access: false },
+	{ id: '/admin/unidades-educativas', label: '4. Unidades Educativas 1', access: false },
+	{ id: '/admin/unidades-educativas-confirmar', label: '5. Unidades Educativas 2', access: false },
 ];
 
 export default function TabsAdmin() {
 	const pathname = usePathname();
 	const [steps, setSteps] = useState(stepsInit);
 
-	const aperturaSuccess = useAperturaStore((state) => state.success);
 
 	const currentStepIndex = steps.findIndex((step) => step.id === pathname);
 
@@ -33,6 +32,9 @@ export default function TabsAdmin() {
 				if (step.id === '/admin/unidades-educativas') {
 					return { ...step, access: true };
 				}
+				if (step.id === '/admin/unidades-educativas-confirmar') {
+					return { ...step, access: true };
+				}
 				return step;
 			})
 		);
@@ -40,13 +42,13 @@ export default function TabsAdmin() {
 
 	return (
 		<div className="my-12">
-			<div className="max-w-3xl mx-auto relative animate-fadeinleft">
+			<div className="max-w-4xl mx-auto relative animate-fadeinleft">
 				<div className="absolute top-5 left-0 w-full h-[5px] bg-gray-200 rounded-lg" />
 				<div
 					className="absolute top-5 left-0 h-[5px] bg-[#007934] transition-all duration-500 rounded-lg"
-					style={{ width: `${11.5 + (currentStepIndex / (steps.length)) * 100}%` }}
+					style={{ width: `${8.869 + (currentStepIndex / (steps.length)) * 100}%` }}
 				/>
-				<div className="relative flex justify-between mt-5 max-w-4xl">
+				<div className="relative flex justify-between mt-5 max-w-5xl">
 					{steps.map((step, index) => {
 						const isCompleted = index < currentStepIndex;
 						const isCurrent = index === currentStepIndex;

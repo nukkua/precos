@@ -11,23 +11,25 @@ import { use, useEffect } from "react";
 interface Props {
 	getDivision: Promise<DivisionResponse>;
 	getApertura: Promise<AperturaResponse>;
+	token: string;
 }
 
 
-export const Cr = ({ getDivision, getApertura }: Props) => {
+export const Cr = ({ getDivision, getApertura, token }: Props) => {
 	const division = use(getDivision);
 	const apertura = use(getApertura);
 
-	const setDivisionResponse = useDivisionsStore(state => state.setDivisionResponse);
 	const setAperturaResponse = useAperturaStore(state => state.setAperturaResponse);
+	const setDivisionResponse = useDivisionsStore(state => state.setDivisionResponse);
 	const getCentros = useCentrosReclutamientoStore(state => state.getCentros);
 
 
 	useEffect(() => {
 		setDivisionResponse(division);
 		setAperturaResponse(apertura);
-		getCentros()
-	}, [setDivisionResponse, division, setAperturaResponse, apertura, getCentros])
+		getCentros(token)
+	}, [setDivisionResponse, division, setAperturaResponse, apertura, getCentros, token])
+
 
 
 

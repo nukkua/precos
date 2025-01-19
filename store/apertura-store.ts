@@ -25,7 +25,7 @@ export interface AperturaActions {
 	setAperturaResponse: (aperturaResponse: AperturaResponse) => void;
 	clearApertura: () => void;
 	postApertura: (apertura: Apertura) => Promise<boolean>;
-	getApertura: () => Promise<void>;
+	getApertura: (token: string) => Promise<void>;
 }
 
 export type AperturaStore = AperturaState & AperturaActions
@@ -137,9 +137,9 @@ export const createAperturaStore = (
 						set({ isLoading: false });
 					}
 				},
-				getApertura: async () => {
+				getApertura: async (token: string) => {
 					try {
-						const apertura = await getApertura(new Date().getFullYear().toString());
+						const apertura = await getApertura(token, new Date().getFullYear().toString());
 						const fechaApertura = apertura.data?.fecha_apertura ? new Date(apertura.data.fecha_apertura) : null;
 
 						set({
