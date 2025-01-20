@@ -1,6 +1,6 @@
 import { CentrosReclutamiento } from '@/interfaces/centros-reclutamiento/centros-reclutamiento';
 import { LaravelErrorResponse, LaravelValidationError } from '@/interfaces/globals';
-import { UnidadesEducativas } from '@/interfaces/unidades/unidades';
+import { UnidadEducativaInformationResponse, UnidadesEducativas, UnidadesResponse } from '@/interfaces/unidades/unidades';
 import { getUnidadEducativaInformation } from '@/services/getUnidadEducativaInformation';
 import { getUnidades } from '@/services/getUnidades';
 import { postsUnidades } from '@/services/postsUnidades';
@@ -67,6 +67,8 @@ export interface UnidadesActions {
 
 	setUnidadConfirmSelectedToCreate: (ueId: number) => void;
 	setCentroConfirmSelectedToCreate: (ueId: number) => void;
+
+	setUnidadesResponse: (unidadesResponse: UnidadesResponse) => void;
 }
 
 export type UnidadesStore = UnidadesState & UnidadesActions;
@@ -107,6 +109,25 @@ export const createUnidadesStore = (
 	return createStore<UnidadesStore>()(
 		(set, get) => ({
 			...initState,
+
+			setUnidadesResponse: (unidadesResponse: UnidadesResponse) => {
+
+				const unidades = unidadesResponse.data?.filter(unidad => unidad?.cupos_unidades_educativa[0])?.map(unidad => {
+					return {
+						...unidad,
+						cupos: (unidad?.cupos_unidades_educativa?.[0]?.cupos || 0),
+						centroId: (unidad?.cupos_unidades_educativa?.[0]?.centros_reclutamiento_id || 0)
+
+					}
+				})
+				set((state) => ({
+					unidades: unidades,
+					unidadesFiltered: unidades,
+					isLoading: false,
+
+				}))
+
+			},
 			getUnidades: async (token: string) => {
 				if (get().unidades) {
 					return;
@@ -259,6 +280,7 @@ export const createUnidadesStore = (
 				}));
 
 			},
+
 
 			setUnidadesConfirmButton: (value: boolean) => {
 				set({ unidadesConfirmButton: value, });

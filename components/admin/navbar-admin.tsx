@@ -28,7 +28,7 @@ export default function NavbarAdmin() {
 		return () => {
 			window.removeEventListener("scroll", handleScroll);
 		};
-	}, [prevScrollPos]);
+	}, [prevScrollPos, handleScroll]);
 
 	return (
 		<header
@@ -51,9 +51,11 @@ export default function NavbarAdmin() {
 					</h1>
 				</Link>
 				<div className="flex text-sm text-gray-600 slide-in-reverse gap-4">
-					Gestión: {new Date().getFullYear()}
+					<Link href='/reportes'>
+						Reportes
+					</Link>
 					<Logout />
-
+					Gestión: {new Date().getFullYear()}
 				</div>
 			</div>
 		</header>
