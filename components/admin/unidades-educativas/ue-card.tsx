@@ -7,8 +7,9 @@ import { useUnidadesStore } from "@/providers/unidades-store-provider";
 
 interface Props {
 	unidad: UnidadesEducativas;
+	token: string;
 }
-export const UeCard = ({ unidad }: Props) => {
+export const UeCard = ({ unidad, token }: Props) => {
 	const centroSelected = useUnidadesStore(state => state.centroSelected);
 	const existsUnidadInCentro = useCentrosReclutamientoStore(state => state.existsUnidad);
 
@@ -28,7 +29,7 @@ export const UeCard = ({ unidad }: Props) => {
 
 		linkUnidadesToCentro(ueId, centro!.id);
 		linkCentroToUnidad(ueId, centro!);
-		getUnidadEducativaInformation(ueId);
+		getUnidadEducativaInformation(ueId, token);
 
 
 		// console.log("Enlazando unidad", ueId, "con centro", centro!.id);

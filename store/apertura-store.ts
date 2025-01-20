@@ -24,7 +24,7 @@ export interface AperturaActions {
 	setApertura: (name: string, value: string | number) => void;
 	setAperturaResponse: (aperturaResponse: AperturaResponse) => void;
 	clearApertura: () => void;
-	postApertura: (apertura: Apertura) => Promise<boolean>;
+	postApertura: (apertura: Apertura, token: string) => Promise<boolean>;
 	getApertura: (token: string) => Promise<void>;
 }
 
@@ -87,7 +87,7 @@ export const createAperturaStore = (
 						...initState.apertura,
 					}
 				})),
-				postApertura: async (apertura: Apertura) => {
+				postApertura: async (apertura: Apertura, token: string) => {
 					set({ isLoading: true });
 					try {
 						await postApertura({
@@ -96,7 +96,7 @@ export const createAperturaStore = (
 							edad_min: apertura.edadMinima,
 							fecha_limite: apertura.fechaLimiteEdad,
 							fecha_apertura: apertura.fechaLimiteApertura,
-						});
+						}, token);
 						set(state => ({
 							...state,
 							success: true,

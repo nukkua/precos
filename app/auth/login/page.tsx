@@ -1,6 +1,7 @@
 'use client'
 
 import { loginAction } from '@/actions/login'
+import { FooterForm } from '@/components/footer-form'
 import { useState } from 'react'
 import { useActionState } from 'react'
 
@@ -90,10 +91,7 @@ export default function LoginPage() {
 				</form>
 
 				{/* Footer */}
-				<footer className="mt-6 text-center text-sm text-gray-500">
-					<p>Sistema Militar de Control © {new Date().getFullYear()}</p>
-					<p className="mt-1">Fuerzas Armadas</p>
-				</footer>
+				<FooterForm />
 			</div>
 		</div>
 	)

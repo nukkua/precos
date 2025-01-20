@@ -34,7 +34,7 @@ export const Division = ({ getApertura, token }: Props) => {
 			<DivisionCupponProgress />
 
 			<DivisionGrid />
-			<DivisionForm />
+			<DivisionForm token={token} />
 
 		</div>
 	)

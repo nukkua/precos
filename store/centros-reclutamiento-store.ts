@@ -2,7 +2,7 @@ import { CentrosReclutamientoResponse, type CentrosReclutamiento } from '@/inter
 import { LaravelErrorResponse, LaravelValidationError } from '@/interfaces/globals';
 import { getCentrosReclutamiento } from '@/services/getCentrosReclutamiento';
 import { postsCentros } from '@/services/postsCentros';
-import { sleep } from '@/services/sleep';
+
 import { createStore } from 'zustand/vanilla'
 
 
@@ -25,7 +25,7 @@ export interface CentrosReclutamientoActions {
 	setCentros: (centros?: CentrosReclutamiento[]) => void;
 	setCentrosResponse: (centrosResponse: CentrosReclutamientoResponse) => void;
 
-	postsCentros: () => Promise<boolean>;
+	postsCentros: (token: string) => Promise<boolean>;
 	getCentros: (token: string) => Promise<void>;
 
 	setCentrosFiltered: (selector: number | string, query: string) => void;
@@ -96,7 +96,7 @@ export const createCentrosReclutamientoStore = (
 				});
 
 			},
-			postsCentros: async () => {
+			postsCentros: async (token: string) => {
 				set({ isLoading: true });
 				try {
 					const centros = get().centros;
@@ -110,7 +110,7 @@ export const createCentrosReclutamientoStore = (
 							codigo_division: centro.codigo_division,
 							cupo: centro.cupos,
 							gestion: new Date().getFullYear(),
-						});
+						}, token);
 					}
 					set(state => ({
 						...state,

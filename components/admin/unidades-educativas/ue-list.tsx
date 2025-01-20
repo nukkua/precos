@@ -5,9 +5,10 @@ import { UeCard } from "./ue-card";
 
 interface Props {
 	unidadesFiltered?: UnidadesEducativas[];
+	token: string;
 }
 
-export const UeList = ({ unidadesFiltered }: Props) => {
+export const UeList = ({ unidadesFiltered, token }: Props) => {
 
 
 
@@ -17,7 +18,7 @@ export const UeList = ({ unidadesFiltered }: Props) => {
 		<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 			{
 				unidadesFiltered?.map(unidad => (
-					<UeCard key={unidad.codigo} unidad={unidad} />
+					<UeCard key={unidad.codigo} unidad={unidad} token={token} />
 
 				))}
 		</div>

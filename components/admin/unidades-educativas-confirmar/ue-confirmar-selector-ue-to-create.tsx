@@ -19,8 +19,13 @@ export const UeConfirmarSelectorUeToCreate = () => {
 		setUnidadSelected(Number(e.target.value))
 	}
 	useEffect(() => {
-		setUnidadSelected(unidades![0]!.codigo)
-	}, [])
+		if (unidades && unidades?.length > 0) {
+			setUnidadSelected(unidades[0].codigo)
+		}
+		else {
+			setUnidadSelected(0);
+		}
+	}, [unidades?.length, setUnidadSelected, centroSelected])
 
 
 

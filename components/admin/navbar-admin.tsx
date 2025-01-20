@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Logout from "../logout";
+
 
 export default function NavbarAdmin() {
 	const [isVisible, setIsVisible] = useState(true);
@@ -19,6 +21,7 @@ export default function NavbarAdmin() {
 
 		setPrevScrollPos(currentScrollPos);
 	};
+
 
 	useEffect(() => {
 		window.addEventListener("scroll", handleScroll);
@@ -47,8 +50,10 @@ export default function NavbarAdmin() {
 						Sistema de Asignación de Cupos - Servicio Premilitar
 					</h1>
 				</Link>
-				<div className="mt-2 text-sm text-gray-600 slide-in-reverse">
+				<div className="flex text-sm text-gray-600 slide-in-reverse gap-4">
 					Gestión: {new Date().getFullYear()}
+					<Logout />
+
 				</div>
 			</div>
 		</header>

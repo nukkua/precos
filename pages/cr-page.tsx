@@ -38,7 +38,7 @@ export const Cr = ({ getDivision, getApertura, token }: Props) => {
 			<h2 className="title mb-5 slide-in">
 				Asignacion de Cupos por Centros de Reclutamiento
 			</h2>
-			<CrMain />
+			<CrMain token={token} />
 		</>
 	)
 }

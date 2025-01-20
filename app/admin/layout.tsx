@@ -15,14 +15,14 @@ export default async function AdminLayout({
 }) {
 
 	const session = await verifySession();
-	console.log(session);
-	if (!session.token) redirect('/auth/login');
+
+	if (!session) redirect('/auth/login');
 
 	return (
 		<html lang="en" >
 			<body>
 				<div className="min-h-screen bg-gradient-to-b from-[#1a2f1a] to-[#0f1f0f]">
-					<NavbarAdmin />
+					<NavbarAdmin  />
 					<div className="mx-auto mt-20 py-2">
 						<h1 className="flex justify-center text-gray-50 text-2xl font-extrabold max-w-3xl mx-auto my-12 animate-fadeinleft">Pasos a seguir para la asignacion de cupos</h1>
 						<AperturaStoreProvider>

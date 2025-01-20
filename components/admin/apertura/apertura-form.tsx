@@ -3,15 +3,18 @@
 import { AssignCuppon } from '@/components/assign-cuppon';
 import { DangerMessage } from '@/components/danger-message';
 import { ErrorModal } from '@/components/error-modal';
+
 import { useAperturaStore } from '@/providers/apertura-store-provider';
 import { toast, Toaster } from 'sonner';
 
 const currentYear = new Date().getFullYear() + 1;
 const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
 
-export const AperturaForm = () => {
+interface Props {
+	token: string;
+}
 
-
+export const AperturaForm = ({ token }: Props) => {
 	const postApertura = useAperturaStore(state => state.postApertura);
 
 	const apertura = useAperturaStore(state => state.apertura);
@@ -33,7 +36,7 @@ export const AperturaForm = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
-			const success = await postApertura(apertura);
+			const success = await postApertura(apertura, token);
 
 			if (success) {
 				toast.success('Cupos para la apertura asignados con exito!', {

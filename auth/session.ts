@@ -2,6 +2,7 @@ import 'server-only'
 
 import { cookies } from 'next/headers'
 import { login } from '@/services/login';
+import { logout } from '@/services/logout';
 
 export async function createSession(email: string, password: string) {
 	const expiresAt = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000);
@@ -19,7 +20,11 @@ export async function createSession(email: string, password: string) {
 }
 
 export async function deleteSession() {
+
 	const cookieStore = await cookies();
+	const session = (await cookies()).get('session')?.value;
+
+	await logout(session);
 	cookieStore.delete('session');
 }
 

@@ -38,9 +38,9 @@ export type UnidadesState = Unidades & UnidadesConfirmar;
 
 export interface UnidadesActions {
 	getUnidades: (token: string) => Promise<void>;
-	postUnidades: (unidades: UnidadesEducativas[]) => Promise<boolean>;
+	postUnidades: (unidades: UnidadesEducativas[], token: string) => Promise<boolean>;
 
-	getUnidadEducativaInformation: (unidadId: number) => Promise<void>;
+	getUnidadEducativaInformation: (unidadId: number, token: string) => Promise<void>;
 
 	setDepartamentoSelected: (departamentoId: number) => void;
 
@@ -143,7 +143,7 @@ export const createUnidadesStore = (
 					set({ isLoading: false });
 				}
 			},
-			postUnidades: async (unidades?: UnidadesEducativas[]) => {
+			postUnidades: async (unidades?: UnidadesEducativas[], token: string) => {
 				set({ isLoading: true });
 				try {
 
@@ -158,7 +158,7 @@ export const createUnidadesStore = (
 							porcentaje_hombres: unidad.porcentajeHombre,
 							porcentaje_mujeres: unidad.porcentajeMujeres,
 							gestion: new Date().getFullYear(),
-						})
+						}, token)
 					}
 					set(state => ({
 						...state,
@@ -264,7 +264,10 @@ export const createUnidadesStore = (
 				set({ unidadesConfirmButton: value, });
 			},
 
+
 			assignCuppon: (ueId: number, cupos: number, cuposMujeres: number, cuposHombres: number, porcentajeMujeres: number, porcentajeHombre: number) => {
+
+				// assignCupo(unidadSelectedToCreate, cuposParsed, calcularDistribucionSugerida().cuposMujeres, calcularDistribucionSugerida().cuposHombres, Number(porcentajeMujeres), Number(porcentajeHombres));
 				const unidades = get().unidades?.map((unidad) => {
 					if (unidad.codigo === ueId) {
 						return {
@@ -340,12 +343,12 @@ export const createUnidadesStore = (
 			setCentroConfirmSelectedToCreate: (ueId: number) => {
 				set({ centroConfirmSelectedToCreate: ueId })
 			},
-			getUnidadEducativaInformation: async (unidadId: number) => {
+			getUnidadEducativaInformation: async (unidadId: number, token: string) => {
 				if (unidadId === 1) return;
 
 				set({ isLoading: true });
 				try {
-					const unidadInformation = await getUnidadEducativaInformation(new Date().getFullYear().toString(), unidadId);
+					const unidadInformation = await getUnidadEducativaInformation(new Date().getFullYear().toString(), unidadId, token);
 
 					set({
 						success: true,

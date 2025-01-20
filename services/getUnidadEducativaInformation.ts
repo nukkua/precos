@@ -2,9 +2,16 @@ import { url } from "./url";
 import { type UnidadEducativaInformationResponse } from "@/interfaces/unidades/unidades";
 
 
-export const getUnidadEducativaInformation = async (gestion: string = new Date().getFullYear().toString(), unidadId: number): Promise<UnidadEducativaInformationResponse> => {
+export const getUnidadEducativaInformation = async (gestion: string = new Date().getFullYear().toString(), unidadId: number, token: string): Promise<UnidadEducativaInformationResponse> => {
 	try {
-		const res = await fetch(`${url}/porcentajes/${unidadId}/${gestion}`);
+		const res = await fetch(`${url}/porcentajes/${unidadId}/${gestion}`, {
+			method: 'GET',
+			headers: {
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json',
+			},
+
+		});
 
 		const data = await res.json();
 

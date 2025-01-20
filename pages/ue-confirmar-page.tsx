@@ -10,11 +10,10 @@ import { useRouter } from "next/navigation";
 import ErrorPage from "./error-page";
 
 interface Props {
-	getDivision: Promise<DivisionResponse>;
-	getApertura: Promise<AperturaResponse>;
+	token: string;
 }
 
-export const UeConfirmar = () => {
+export const UeConfirmar = ({ token }: Props) => {
 	const router = useRouter()
 
 
@@ -53,7 +52,7 @@ export const UeConfirmar = () => {
 			<h2 className="title mb-5 slide-in">
 				Asignacion de cupos en Unidades Educativas
 			</h2>
-			<UeConfirmarMain />
+			<UeConfirmarMain token={token}/>
 		</>
 
 	)

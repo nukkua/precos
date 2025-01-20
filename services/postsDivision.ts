@@ -6,10 +6,11 @@ export interface DivisionMapped {
 	gestion_apertura: string;
 }
 
-export const postsDivision = async (division: DivisionMapped) => {
+export const postsDivision = async (division: DivisionMapped, token: string) => {
 	const res = await fetch(`${url}/cupos/division`, {
 		method: 'POST',
 		headers: {
+			'Authorization': `Bearer ${token}`,
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},

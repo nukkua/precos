@@ -7,7 +7,11 @@ import { useDivisionsStore } from "@/providers/division-store-provider";
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
 
-export const DivisionForm = () => {
+interface Props {
+	token: string;
+}
+
+export const DivisionForm = ({ token }: Props) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const cantidadApertura = useAperturaStore(state => state.apertura.cantidad);
 	const cupponsAssigned = useDivisionsStore((state) =>
@@ -47,7 +51,7 @@ export const DivisionForm = () => {
 
 		}
 		try {
-			const success = await postsDivision(divisions);
+			const success = await postsDivision(divisions, token);
 
 			if (success) {
 				toast.success('Cupos para la apertura asignados con exito!', {

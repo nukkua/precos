@@ -13,7 +13,11 @@ import { ErrorModal } from "@/components/error-modal"
 import { toast, Toaster } from "sonner"
 import { DangerMessage } from "@/components/danger-message"
 
-export const CrMain = () => {
+interface Props {
+	token: string;
+}
+
+export const CrMain = ({ token }: Props) => {
 	const [showForm, setShowForm] = useState(false)
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -40,7 +44,7 @@ export const CrMain = () => {
 		}
 
 		try {
-			const success = await postCentros();
+			const success = await postCentros(token);
 			if (success) {
 				toast.success('Cupos para las divisiones asignados con exito!', {
 					duration: 5000,

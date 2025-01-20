@@ -45,6 +45,7 @@ export const Ue = ({ getDivision, getApertura, getCentros, token }: Props) => {
 		setCentrosResponse,
 		centros,
 		getUnidades,
+		token
 	])
 
 	return (
@@ -52,7 +53,7 @@ export const Ue = ({ getDivision, getApertura, getCentros, token }: Props) => {
 			<h2 className="title mb-5 slide-in">
 				Vinculacion de Unidades Educativas
 			</h2>
-			<UeMain />
+			<UeMain token={token} />
 		</>
 
 	)

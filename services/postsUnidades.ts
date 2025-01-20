@@ -9,12 +9,13 @@ export interface UnidadesMapped {
 	gestion: number;
 }
 
-export const postsUnidades = async (unidad: UnidadesMapped) => {
+export const postsUnidades = async (unidad: UnidadesMapped, token: string) => {
 	const res = await fetch(`${url}/cupos/unidades-educativas`, {
 		method: 'POST',
 		headers: {
+			'Authorization': `Bearer ${token}`,
 			'Accept': 'application/json',
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(unidad)
 	});

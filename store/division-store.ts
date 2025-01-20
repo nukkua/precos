@@ -26,7 +26,7 @@ export interface DivisionsActions {
 	setDivisionConfirmed: (key: string, confirmed: boolean) => void;
 	clearDivisions: () => void;
 	clearByDivision: (key: string) => void;
-	postsDivision: (division: Division) => Promise<boolean>;
+	postsDivision: (division: Division, token: string) => Promise<boolean>;
 
 	getDivision: (token: string) => Promise<void>;
 }
@@ -144,7 +144,7 @@ export const createDivisionsStore = (
 			}
 		})),
 
-		postsDivision: async (division: Division) => {
+		postsDivision: async (division: Division, token: string) => {
 			set({ isLoading: true });
 			try {
 				await Promise.all(
@@ -153,7 +153,7 @@ export const createDivisionsStore = (
 							codigo_division: divisionItem.id,
 							cupos: divisionItem.cupos,
 							gestion_apertura: new Date().getFullYear().toString(),
-						})
+						}, token)
 					)
 				);
 				set(state => ({

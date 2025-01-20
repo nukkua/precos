@@ -5,7 +5,11 @@ import { UeList } from "./ue-list";
 import { DEPARTAMENTOS } from "./regimiento-selector";
 import { UeSearch } from "./ue-search";
 
-export const UeSelector = () => {
+interface Props {
+	token: string;
+}
+
+export const UeSelector = ({ token }: Props) => {
 	const departamentoSelected = useUnidadesStore(state => state.departamentoSelected);
 	const departamento = DEPARTAMENTOS.find(departamento => departamento.id === departamentoSelected);
 
@@ -19,7 +23,7 @@ export const UeSelector = () => {
 	return (
 		<div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
 			<UeSearch />
-			<UeList unidadesFiltered={unidadesFiltered} />
+			<UeList unidadesFiltered={unidadesFiltered} token={token} />
 
 		</div>
 	)

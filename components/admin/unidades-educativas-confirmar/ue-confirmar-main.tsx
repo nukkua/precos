@@ -13,8 +13,12 @@ import { UeConfirmarHeader } from "./ue-confirmar-header"
 import { UeConfirmarFilterAndSearch } from "./ue-confirmar-filter-and-search"
 import { UeConfirmarTable } from "./ue-confirmar-table"
 import { UeConfirmarForm } from "./ue-confirmar-form"
+import { setOficio } from "@/services/setOficio"
 
-export const UeConfirmarMain = () => {
+interface Props {
+	token: string;
+}
+export const UeConfirmarMain = ({ token }: Props) => {
 	const [showForm, setShowForm] = useState(false)
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -41,7 +45,7 @@ export const UeConfirmarMain = () => {
 		// }
 
 		try {
-			const success = await postUnidadesEducativas(unidadesConfirmed!);
+			const success = await postUnidadesEducativas(unidadesConfirmed!, token);
 			if (success) {
 				toast.success('Asignado con exito', {
 					duration: 5000,
@@ -61,12 +65,15 @@ export const UeConfirmarMain = () => {
 		}
 
 	}
+	const handleClick = async () => {
+		await setOficio(token);
+	}
 
 
 
 	return (
 
-		<div className="space-y-6">
+		<div className="space-y-6 flex flex-col">
 			{isModalVisibleError && <ErrorModal
 				title="Error"
 				message="Los cupos no han sido asignados correctamente."
@@ -88,7 +95,16 @@ export const UeConfirmarMain = () => {
 			<UeConfirmarTable currentPage={currentPage} setCurrentPage={setCurrentPage} />
 			<form onSubmit={handleSubmit}>
 				<AssignCuppon isLoading={isLoading} />
+
 			</form>
+			<div className="flex justify-end items-center gap-1">
+				<button
+					onClick={() => handleClick()}
+					className="px-10 py-3.5 bg-blue-400 rounded-xl font-semibold"
+				>
+					Generar Oficios
+				</button>
+			</div>
 
 
 		</div>

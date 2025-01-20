@@ -20,6 +20,7 @@ export const UeConfirmarForm = ({ setShowForm }: {
 	const centroSelectedToCreate = useUnidadesStore(state => state.centroConfirmSelectedToCreate)
 	const assignCupo = useUnidadesStore(state => state.assignCuppon)
 	const handleReset = useUnidadesStore(state => state.handleReset)
+	console.log(centroSelectedToCreate, unidadSelectedToCreate);
 
 	const maxCuposCentro = (centroId: number) => {
 		return centros
@@ -90,7 +91,7 @@ export const UeConfirmarForm = ({ setShowForm }: {
 			duration: 5000,
 		})
 	}
-	const disableForm = noCuposAvailable || (calcularDistribucionSugerida().cuposHombres > (unidadSelectedInformation?.totalHombres || 0)) || (calcularDistribucionSugerida().cuposMujeres > (unidadSelectedInformation?.totalMujeres || 0)) || Number(cupos) > (unidadSelectedInformation?.totalEstudiantes || 0);
+	const disableForm = noCuposAvailable || (calcularDistribucionSugerida().cuposHombres > (unidadSelectedInformation?.totalHombres || 0)) || (calcularDistribucionSugerida().cuposMujeres > (unidadSelectedInformation?.totalMujeres || 0)) || Number(cupos) > (unidadSelectedInformation?.totalEstudiantes || 0) || (unidadSelectedToCreate === 0);
 
 	return (
 		<form
@@ -196,7 +197,7 @@ export const UeConfirmarForm = ({ setShowForm }: {
 					</div>
 					{disableForm && (
 						<p className="text-sm text-red-600">
-							La asignacion excede la cantidad de estudiantes disponibles segun genero
+							La asignacion excede la cantidad de estudiantes disponibles segun genero, o no existe unidad educativa
 						</p>
 					)}
 					{noCuposAvailable && (

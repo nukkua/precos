@@ -9,7 +9,11 @@ import { ErrorModal } from "@/components/error-modal";
 import { SuccessModal } from "@/components/success-modal";
 import { useRouter } from "next/navigation";
 
-export const UeMain = () => {
+interface Props {
+	token: string;
+}
+
+export const UeMain = ({ token }: Props) => {
 	const router = useRouter();
 	const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 	const [isModalVisibleError, setIsModalVisibleError] = useState<boolean>(false);
@@ -57,7 +61,7 @@ export const UeMain = () => {
 			)}
 			{validCentroWithDepartamento && (
 				<>
-					<UeSelector />
+					<UeSelector token={token} />
 					<form onSubmit={handleSubmit}>
 						<AssignCuppon isLoading={isLoading} />
 					</form>

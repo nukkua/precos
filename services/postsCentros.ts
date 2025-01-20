@@ -7,10 +7,11 @@ export interface CentrosMapped {
 	gestion: number;
 }
 
-export const postsCentros = async (centro: CentrosMapped) => {
+export const postsCentros = async (centro: CentrosMapped, token: string) => {
 	const res = await fetch(`${url}/cupos/centros-reclutamiento`, {
 		method: 'POST',
 		headers: {
+			'Authorization': `Bearer ${token}`,
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
