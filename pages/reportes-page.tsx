@@ -4,12 +4,12 @@ import { ReportesMain } from "@/components/reportes/reportes-main";
 import { AperturaResponse } from "@/interfaces/apertura/apertura";
 import { CentrosReclutamientoResponse } from "@/interfaces/centros-reclutamiento/centros-reclutamiento";
 import { DivisionResponse } from "@/interfaces/divisiones/divisiones";
-import { Premilitares } from "@/interfaces/premilitares/premilitares";
 import { UnidadesResponse } from "@/interfaces/unidades/unidades";
 import { useAperturaStore } from "@/providers/apertura-store-provider";
 import { useCentrosReclutamientoStore } from "@/providers/centros-reclutamiento-store-provider";
 import { useDivisionsStore } from "@/providers/division-store-provider";
 import { useUnidadesStore } from "@/providers/unidades-store-provider";
+
 import { use, useEffect } from "react";
 
 interface Props {
