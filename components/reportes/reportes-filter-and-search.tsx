@@ -54,11 +54,12 @@ export const ReportesFilterAndSearch = () => {
 		]) || [];
 
 
-		doc.text(`Unidades Educativas`, 75, 15);
+		doc.addImage('/_next/image?url=https%3A%2F%2Fsistemas.mindef.gob.bo%2Fassets%2Fimg%2Fportfolio%2Flogo2.jpg&w=640&q=75', 'PNG', 10, 10, 55, 15);
+		doc.text(`Unidades Educativas`, 75, 35);
 		autoTable(doc, {
 			head: headers,
 			body: data,
-			startY: 20,
+			startY: 40,
 			theme: "grid",
 			styles: { font: "helvetica", fontSize: 10 },
 			headStyles: { fillColor: [41, 128, 185], textColor: 255 },
