@@ -10,8 +10,7 @@ import { useAperturaStore } from "@/providers/apertura-store-provider";
 import { useCentrosReclutamientoStore } from "@/providers/centros-reclutamiento-store-provider";
 import { useDivisionsStore } from "@/providers/division-store-provider";
 import { useUnidadesStore } from "@/providers/unidades-store-provider";
-import { getReportePremilitaresByCentroId } from "@/services/getReportePremilitaresByCentroId";
-import { use, useEffect, useState } from "react";
+import { use, useEffect } from "react";
 
 interface Props {
 	getApertura: Promise<AperturaResponse>;
@@ -30,7 +29,6 @@ export const Reportes = ({ getApertura, getDivision, getCentros, getUnidades }: 
 	const setDivisionResponse = useDivisionsStore(state => state.setDivisionResponse);
 	const setCentrosResponse = useCentrosReclutamientoStore(state => state.setCentrosResponse);
 	const setUnidadesResponse = useUnidadesStore(state => state.setUnidadesResponse);
-	const centroSelected = useCentrosReclutamientoStore(state => state.centroSelected);
 
 
 

@@ -9,7 +9,7 @@ export const postApertura = async (apertura: AperturaMapped, token: string) => {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(apertura)
+		body: JSON.stringify(apertura),
 	});
 
 

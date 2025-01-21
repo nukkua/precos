@@ -1,6 +1,6 @@
 import { CentrosReclutamiento } from '@/interfaces/centros-reclutamiento/centros-reclutamiento';
 import { LaravelErrorResponse, LaravelValidationError } from '@/interfaces/globals';
-import { UnidadEducativaInformationResponse, UnidadesEducativas, UnidadesResponse } from '@/interfaces/unidades/unidades';
+import { UnidadesEducativas, UnidadesResponse } from '@/interfaces/unidades/unidades';
 import { getUnidadEducativaInformation } from '@/services/getUnidadEducativaInformation';
 import { getUnidades } from '@/services/getUnidades';
 import { postsUnidades } from '@/services/postsUnidades';

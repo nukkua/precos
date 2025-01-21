@@ -20,6 +20,7 @@ export const getDivision = async (gestion: string = new Date().getFullYear().toS
 
 		return data;
 
+
 	} catch (error) {
 		console.error('Error en getDivision:', error);
 		throw new Error(error instanceof Error ? error.message : 'Error desconocido.');
