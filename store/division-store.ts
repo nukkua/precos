@@ -71,7 +71,7 @@ export const defaultInitState: DivisionsState = {
 export const createDivisionsStore = (
 	initState: DivisionsState = defaultInitState,
 ) => {
-	return createStore<DivisionsStore>()((set) => ({
+	return createStore<DivisionsStore>()((set, get) => ({
 		...initState,
 		setDivision: (key: string, value: number, confirmed: boolean = false) => set((state) => ({
 			...state,

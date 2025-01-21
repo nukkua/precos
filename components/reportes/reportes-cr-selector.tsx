@@ -3,7 +3,7 @@ import { useUnidadesStore } from "@/providers/unidades-store-provider";
 import { useEffect } from "react";
 
 export const ReportesCrSelector = () => {
-	const unidadesFiltered = useUnidadesStore(state => state.unidadesFiltered);
+	const unidades = useUnidadesStore(state => state.unidadesFiltered);
 	const setUnidadesFiltered = useUnidadesStore(state => state.setUnidadesFiltered);
 	const centros = useCentrosReclutamientoStore((state) => state.centros)
 	const centroSelected = useCentrosReclutamientoStore((state) => state.centroSelected);
@@ -37,10 +37,13 @@ export const ReportesCrSelector = () => {
 				`}
 				disabled={centros?.length === 0}
 			>
+
+				<option value={-1}>Todos los centros</option>
 				{centros?.length === 0 ? (
 					<option value="">No hay centros disponibles</option>
 				) : (
 					centros?.map((centro) => (
+
 						<option
 							key={centro.id}
 							value={centro.id}
@@ -49,7 +52,7 @@ export const ReportesCrSelector = () => {
 								${getColorClass(centro.cupos)}
 							`}
 						>
-							{centro.regimiento} • {centro.cupos} {centro.cupos === 1 ? "Disponible" : "Disponibles"}
+							{centro.regimiento} {unidades?.some(unidad => unidad.centroId === centro.id) ? 'HABILITADO' : 'NO HABILITADO'}
 						</option>
 					))
 				)}
